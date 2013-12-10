@@ -3,12 +3,16 @@
 	<title>The Aircraft Game</title>
 </head>
 <body>
-
+<div id="Result-Div">
+</div>
 	<canvas id="aircraft-canvas"
 			width="1024"
 			height="900">
 		</canvas>
 		<script>
+		var IsAnimateOn = 1;
+		var resultDiv = document.getElementById("Result-Div");
+		var AlertInteger;
 		(function () {
 
 	var canvas = document.getElementById("aircraft-canvas"),
@@ -148,10 +152,40 @@ y = getRandomValue(0, 500);
 			for (i = 0; i < this.lasers.length; i += 1) {
 				this.lasers[i].move();
 			}
+			//is it destroyed?
+				for (var i=0; i<this.lasers.length; i++) {
+				for(var j=0; j<monsters.length; j++) {
+					if(this.lasers[i].x==monsters[j].x && this.lasers[i].y>monsters[j].y && this.lasers[i].y<monsters[j].y+30) {
+						monsters.splice(j,1);
+					}
+				}
+			}
+			//drawing new monsters
+			for(var z=0; z<monsters.length; z++) {
+	if(monsters[z].x == 10) {
+monsters.splice(0,12);
+for(var i=0; i<12; i++) {
+x = 1000;
+y = getRandomValue(0, 500);
+	var monzzter = new Monster(x,y,2);
+	monsters.push(monzzter);
+	
+}
+for(var v=0; v<monsters.length; v++) {
+monsters[v].drawMonster(ctx);
+}
+	}
+}
+//you've been hit
+for(var u=0; u<monsters.length; u++) {
+if(monsters[u].x==fighter.x && monsters[u].y>fighter.y && monsters[u].y<fighter.y+150) {
+window.CancelRequestAnimationFrame(animationFrame)
+AlertInteger=5;
+
+}
+}
 		};
 	}
-
-
 	var fighter = new Fighter(50, 50, 15);
 
 	document.body.addEventListener("keydown", function (e) {
@@ -172,19 +206,45 @@ y = getRandomValue(0, 500);
 		}
 	});
 
+	//new code starts
+	function RecursiveCheckFunc() {
+	for(var z=0; z<monsters.length; z++) {
+	if(monsters[z].x == 500) {
+		for(var j=0; j<monsters.length; i++) {
+			monsters[j].drawMonster(ctx)
+		}
+	}
+}
+RecursiveCheckFunc()
+}
+for(var i=0; i<monsters.length; i++) {
+if(monsters[i].x == 700) {
+	IsAnimateOn = false;
+	}
+}
+function DrawAndMove() {
+			for(var i=0; i<monsters.length; i++){
+			monsters[i].drawMonster(ctx);
+			monsters[i].moveMonster();
+		}
+}
+	//new code ends
 	function animationFrame() {
 		ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+DrawAndMove();
 		fighter.draw(ctx);
-	for(var i=0; i<monsters.length; i++) {
-monsters[i].moveMonster();
-monsters[i].drawMonster(ctx);
-}
 		fighter.performMove(ctx.canvas.width);
 		requestAnimationFrame(animationFrame);
 	}
-
-	requestAnimationFrame(animationFrame);
+if(IsAnimateOn==1)requestAnimationFrame(animationFrame);
+if(AlertInteger==5) {
+alert("You are dead");
+}
 }());
+
+if(AlertInteger==5) {
+alert("You are dead");
+}
 		</script>
 </body>
 </html>
