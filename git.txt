@@ -1,0 +1,3 @@
+За лаптопа : To push in github : Use git push mazter master 
+!!!!! ( on computer - git push origin master)
+ твоје параноје да доказујеш да су неки етнички Македонци постојали

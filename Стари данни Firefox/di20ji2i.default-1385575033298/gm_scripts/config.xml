@@ -1,0 +1,19 @@
+<UserScriptConfig>
+	<Script basedir="eRepublik_Stuff" checkRemoteUpdates="1" dependhash="3f693a7c2a044fbfe49b1f0da1f1ded2fb54e186" description="Makes eRepublik life easier." enabled="true" filename="136286.user.js" installTime="1387977748855" modified="1387977748855" name="eRepublik Stuff" namespace="erepublik_stuff" runAt="document-end" uuid="c4556033-40b5-4f61-b129-0c2ba3bdca8c" version="1.7.10" installurl="https://userscripts.org/scripts/source/136286.user.js" updateurl="https://userscripts.org/scripts/source/136286.meta.js">
+		<Grant>GM_getValue</Grant>
+		<Grant>GM_setValue</Grant>
+		<Grant>GM_addStyle</Grant>
+		<Grant>GM_xmlhttpRequest</Grant>
+		<Include>http://*.erepublik.com/*</Include>
+		<Require filename="jquery.min.js"/>
+		<Require filename="jquery.blockUI.js"/>
+		<Require filename="jquery.tipsy.js"/>
+		<Require filename="jquery.json-2.2.min.js"/>
+	</Script>
+	<Script basedir="eRepublik_battle_master" checkRemoteUpdates="1" dependhash="da39a3ee5e6b4b0d3255bfef95601890afd80709" description="http://userscripts.org/scripts/show/100931" enabled="true" filename="100931.user.js" installTime="1388036282335" modified="1388036282335" name="eRepublik battle master" namespace="eCitizenScyld" runAt="document-end" uuid="6a48be59-4f4f-4dc4-be40-9e2a2e61c1c7" version="1.0.1" installurl="https://userscripts.org/scripts/source/100931.user.js" updateurl="https://userscripts.org/scripts/source/100931.user.js">
+		<Grant>GM_xmlhttpRequest</Grant>
+		<Grant>unsafeWindow</Grant>
+		<Include>http://www.erepublik.com/*/citizen/profile/*</Include>
+		<Include>http://www.erepublik.com/*/military/battlefield/*</Include>
+	</Script>
+</UserScriptConfig>

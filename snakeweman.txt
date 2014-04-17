@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        #MyCanvas {border: 1px solid black;}
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <canvas id="MyCanvas" width="700" height="500"></canvas>
+    <script>
+        var c=document.getElementById("MyCanvas");
+        var ctx=c.getContext("2d");
+               var foodArray = [];
+        var SnakeBlocks = [];
+        var counter = 0;
+        var game_loop;
+        var snake = [];
+        //Create function for creating blocks
+        //Create function for creating and moving snake
+        //Create function for creating another block when food is eaten
+        //Implement score based on food eaten and time spent alive
+        //
+        function getRandomValue(min, max) {
+            return (Math.random() * (max - min) + min) | 0;
+        }
+        function CreateFood(x,y) {
+            this.x = x;
+            this.y = y;
+            this.draw = function () {
+                ctx.fillStyle = "green";
+                ctx.fillRect(x, y, 15, 15);
+
+            }
+
+
+        }
+
+        function Snaake(size, length) {
+
+
+            this.size = size;
+            this.length = length;
+            this.create = function () {
+                for (var i = length - 1; i >= 0; i--) {
+                    snake.push({ x: i, y: 0 })
+                }
+
+            }
+
+            this.Draw = function () {
+                for (var i = 0; i < snake.length; i++) {
+                    var s = snake[i];
+
+                    ctx.fillStyle = "blue";
+                    ctx.fillRect(s.x * size, s.y * size, size, size);
+                }
+                
+            }
+            this.move = function () {
+                //Update the position of the snake
+                var head_x = snake[0].x;
+                var head_y = snake[0].y;
+
+                ////Get the directions
+                //document.onkeydown = function (e) {
+                //    var key = e.keyCode;
+                //    //console.log(key);
+
+                //    if (key == 37 && dir != "right") setTimeout(function () { dir = "left"; }, 30);
+                //    else if (key == 38 && dir != "down") setTimeout(function () { dir = "up"; }, 30);
+                //    else if (key == 39 && dir != "left") setTimeout(function () { dir = "right"; }, 30);
+                //    else if (key == 40 && dir != "up") setTimeout(function () { dir = "down"; }, 30);
+
+                //    if (key) e.preventDefault();
+
+                //}
+
+                //Directions
+                if (dir == "right") head_x++;
+                else if (dir == "left") head_x--;
+                else if (dir == "up") head_y--;
+                else if (dir == "down") head_y++;
+
+                //Move snake
+                var tail = snake.pop();
+                tail.x = head_x;
+                tail.y = head_y;
+                snake.unshift(tail);
+            }
+
+            this.StartMoving = function () {
+                this.Draw;
+                this.move;
+            }
+        }
+    
+        var MyPlayer = new Snaake(10,5,10);
+     
+        var reset;
+        var speed;
+        reset = function () {
+            MyPlayer.create();
+            MyPlayer.Draw();
+            dir = "right";
+            speed = 30;
+            
+            game_loop = setInterval( MyPlayer.StartMoving, 1000 / speed);
+
+            return;
+        }
+        reset();
+        function ChangeDir() {
+            document.onkeydown = function (e) {
+                var key = e.keyCode;
+                if (key == 37) {
+                    dir="left"
+                }
+                else if (key == 38) {
+                    dir = "up";
+                }
+                else if (key == 39) {
+                    dir = "right";
+                }
+                else if (key == 40) {
+                    dir = "down";
+                }
+                if (key) e.preventDefault();
+            }
+        }
+        ChangeDir();
+        //i'll make my own strip club with blackjack and hookers
+        function MoveThatSnake() {
+            if (dir == "right") {
+                snake[0].x++;
+            }
+            else if (dir == "left") {
+                snake[0].x--;
+            }
+            else if (dir == "up") {
+                snake[0].y--;
+            }
+            else if (dir == "down") {
+                snake[0].y++;
+            }
+            for (var i = 1; i < snake.length; i++) {
+                snake[i].x = snake[0].x - i;
+            }
+            for (var l = 1; l < snake.length; l++) {     //index 1 must move one more and then down; index 2 must move two down and then down;
+                snake[l].y = snake[0].y - l;
+            }
+        }
+        
+        var chislo = 10;
+        for (var i = 1; i < snake.length; i++) {
+            snake[i].x == snake[0].x - chislo;
+            chislo = chislo + 10;
+        }
+        setInterval(function () {
+            ctx.clearRect(0, 0, c.height, c.width);
+            MoveThatSnake();
+            
+            MyPlayer.Draw();
+            }, 1000);
+    </script>
+</body>
+</html>
